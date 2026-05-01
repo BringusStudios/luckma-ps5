@@ -1,6 +1,8 @@
 # luckma-ps5
 Zero config automated jailbreak and linux loader for linux-compatible PS5s utilizing the Luckfox Pico Plus board.
 
+# [Big Obvious Download Button Here](https://drive.google.com/file/d/1r_dMdtP1cx-vlyOq1PyUwgSVJ9q9Uj7J/view?usp=sharing)
+
 Online shopping links listed here are affiliate links that generate me a small revenue when purchased from
 
 If you want to get into the weeds and change things/wanna read the source code, flash the img to your microSD card and SSH into the Luckfox and find the main script at /usr/local/bin/ps5-jailbreak.sh
