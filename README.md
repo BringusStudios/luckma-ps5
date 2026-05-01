@@ -19,7 +19,7 @@ Online shopping links listed here are affiliate links that generate me a small r
 
 ## Setup
 
-1. Download and extract 'luckma-ps5.7z' somewhere on your PC. Flash the 'luckma-ps5-sd.img' file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/)
+1. Download and extract 'luckma-ps5.7z' somewhere on your PC. Flash the 'luckma-ps5-sd.img' file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about the image being too big for the card, just continue anyway
 2. Insert the microSD card into the Luckfox
 3. Plug your linux USB drive into your PS5
 4. Connect an ethernet cable between the Luckfox and PS5
