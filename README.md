@@ -3,6 +3,8 @@ Zero config automated jailbreak and linux loader for linux-compatible PS5s utili
 
 Online shopping links listed here are affiliate links that generate me a small revenue when purchased from
 
+If you want to get into the weeds and change things/wanna read the source code, flash the img to your microSD card and SSH into the Luckfox and find the main script at /usr/local/bin/ps5-jailbreak.sh
+
 ## Compatibility
 
 **Phat PS5** (only firmware 3.xx or 4.xx currently)
