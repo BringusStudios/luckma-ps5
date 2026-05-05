@@ -1,7 +1,7 @@
 # luckma-ps5
 Zero config automated jailbreak and linux loader for linux-compatible PS5s utilizing the Luckfox Pico Plus board.
 
-# [Big Obvious Download Button Here](https://drive.google.com/file/d/1r_dMdtP1cx-vlyOq1PyUwgSVJ9q9Uj7J/view?usp=sharing)
+# [Big Obvious Download Button Here](https://github.com/BringusStudios/luckma-ps5/releases)
 
 Online shopping links listed here are affiliate links that generate me a small revenue when purchased from
 
