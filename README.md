@@ -17,13 +17,13 @@ If you want to get into the weeds and change things/wanna read the source code, 
 
 - A USB flash drive/USB SSD with PS5 linux already flashed to it (follow through step 3 here: https://github.com/ps5-linux/ps5-linux-loader)
 - Luckfox Pico Plus RV1103: https://amzn.to/4ut74Hf
-- 8GB or larger MicroSD card: https://amzn.to/4n3ffaH
+- 2GB or larger MicroSD card: https://amzn.to/4n3ffaH
 - MicroSD card reader if you don't have one on your PC: https://amzn.to/4cK22Qv
 - Ethernet cable: https://amzn.to/4vYXKMB
 
 ## Setup
 
-1. Download and extract 'luckma-ps5.7z' somewhere on your PC. Flash the 'luckma-ps5-sd.img' file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about the image being too big for the card, just continue anyway
+1. Download and extract 'luckma-ps5.v#.7z' somewhere on your PC. Flash the 'luckma-ps5-sd.v#.img' file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about the image being too big for the card, just continue anyway
 2. Insert the microSD card into the Luckfox
 3. Plug your linux USB drive into your PS5
 4. Connect an ethernet cable between the Luckfox and PS5
