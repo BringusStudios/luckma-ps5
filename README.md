@@ -1,5 +1,5 @@
 # luckma-ps5
-Zero config automated jailbreak and linux loader for linux-compatible PS5s utilizing the Luckfox Pico Plus board.
+Zero config automated jailbreak and linux loader for linux-compatible PS5s utilizing the Luckfox Pico Plus or Lyra Plus SBC.
 
 # [Big Obvious Download Button Here](https://github.com/BringusStudios/luckma-ps5/releases)
 
@@ -11,19 +11,21 @@ If you want to get into the weeds and change things/wanna read the source code, 
 
 **Phat PS5** (only firmware 3.xx or 4.xx currently)
 
-**Luckfox Pico Plus RV1103** (may be compatible with other luckfox boards but I haven't tested)
+[**Luckfox Lyra Plus RK3506G2**](https://amzn.to/4v73Qcq)
+[**Luckfox Pico Plus RV1103**](https://amzn.to/4ut74Hf)
+May be compatible with other luckfox boards that I haven't tested
 
 ## What you need
 
 - A USB flash drive/USB SSD with PS5 linux already flashed to it (follow through step 3 here: https://github.com/ps5-linux/ps5-linux-loader)
-- Luckfox Pico Plus RV1103: https://amzn.to/4ut74Hf
-- 2GB or larger MicroSD card: https://amzn.to/4n3ffaH
-- MicroSD card reader if you don't have one on your PC: https://amzn.to/4cK22Qv
-- Ethernet cable: https://amzn.to/4vYXKMB
+- One of the Luckfox boards listed above (the Lyra is technically better, but for this use case it doesn't matter)
+- [A 2GB or larger MicroSD card](https://amzn.to/4n3ffaH)
+- [A microSD card reader if you don't have one on your PC](https://amzn.to/4cK22Qv)
+- [An ethernet cable](https://amzn.to/4vYXKMB)
 
 ## Setup
 
-1. Download and extract 'luckma-ps5.v#.7z' somewhere on your PC. Flash the 'luckma-ps5-sd.v#.img' file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about the image being too big for the card, just continue anyway
+1. Download the .7z file for your Luckfox board and extract the .img file somewhere on your PC. Flash the .img file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about anything, just continue anyway
 2. Insert the microSD card into the Luckfox
 3. Plug your linux USB drive into your PS5
 4. Connect an ethernet cable between the Luckfox and PS5
