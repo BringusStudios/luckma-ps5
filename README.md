@@ -12,7 +12,9 @@ If you want to get into the weeds and change things/wanna read the source code, 
 **Phat PS5** (only firmware 3.xx or 4.xx currently)
 
 [**Luckfox Lyra Plus RK3506G2**](https://amzn.to/4v73Qcq)
+
 [**Luckfox Pico Plus RV1103**](https://amzn.to/4ut74Hf)
+
 May be compatible with other luckfox boards that I haven't tested
 
 ## What you need
