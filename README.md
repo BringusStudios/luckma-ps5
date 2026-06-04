@@ -9,7 +9,7 @@ If you want to get into the weeds and change things/wanna read the source code, 
 
 ## Compatibility
 
-**Phat PS5** (only firmware 3.xx or 4.xx currently)
+**A linux-compatible PS5** (check [here](https://github.com/ps5-linux/ps5-linux-loader) for a list of supported firmware versions)
 
 [**Luckfox Lyra Plus RK3506G2**](https://amzn.to/4dwrYQ4)
 
