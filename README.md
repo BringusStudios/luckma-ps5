@@ -9,7 +9,7 @@ If you want to get into the weeds and change things/wanna read the source code, 
 
 ## Compatibility
 
-**A linux-compatible PS5** (check [here](https://github.com/ps5-linux/ps5-linux-loader) for a list of supported firmware versions)
+**A linux-compatible & umtx2 compatible PS5** (check [here](https://github.com/ps5-linux/ps5-linux-loader) for a list of linux supported firmware versions and [here](https://github.com/idlesauce/umtx2) for a list of umtx2 supported firmware versions)
 
 [**Luckfox Lyra Plus RK3506G2**](https://amzn.to/4dwrYQ4)
 
