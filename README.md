@@ -82,7 +82,7 @@ The Lyra Pi requires a one-time setup via a cross-platform python script. Connec
 | Lyra Pi port | Connect to |
 |---|---|
 | Middle ethernet port | PS5 LAN port |
-| Right ethernet port | Your router or switch (only needed for initial setup) |
+| Right ethernet port | Your router or switch |
 | USB-C port | PS5 |
 | USB-A port | Bluetooth dongle |
 | USB-A port | USB-C cable for connecting your DualSense later |
