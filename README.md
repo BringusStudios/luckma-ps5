@@ -126,6 +126,7 @@ The Lyra Pi additionally emulates a USB HID keyboard to navigate the PS5 menus a
 
 ## Troubleshooting
 *Auto menu navigation seems to be working, but the button timings are off*
+
 You can SSH into /usr/local/bin and edit nav_sequence.py to tweak the timings that are in the SEQUENCE list. The numbers are the time to wait before sending the key in that line.
 
 ## Credits
