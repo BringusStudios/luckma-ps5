@@ -204,7 +204,16 @@ while true; do
     echo "[*] PS5 detected at \$PS5_IP"
 
     if [ -f /usr/local/bin/ps5_os_detect.py ] && [ -e /dev/hidg0 ]; then
-        if python3 -c "import sys; sys.path.insert(0, '/usr/local/bin'); from ps5_os_detect import is_ps5_os; sys.exit(0 if is_ps5_os('\$PS5_IP') else 1)"; then
+        echo "[*] Waiting for PS5 OS ports (up to 60s)..."
+        PS5_OS_DETECTED=0
+        for i in \$(seq 1 30); do
+            if python3 -c "import sys; sys.path.insert(0, '/usr/local/bin'); from ps5_os_detect import is_ps5_os; sys.exit(0 if is_ps5_os('\$PS5_IP') else 1)" 2>/dev/null; then
+                PS5_OS_DETECTED=1
+                break
+            fi
+            sleep 2
+        done
+        if [ "\$PS5_OS_DETECTED" = "1" ]; then
             echo "[*] PS5 OS detected, running HID navigation..."
             python3 /usr/local/bin/hid_navigate.py
         else
