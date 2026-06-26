@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>PS5 UMTX2 Jailbreak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        @font-face {
+            font-family: 'Bahnschrift';
+            src: url('bahnschrift.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+    <div id="gif-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;background:#000;">
+        <img src="jailbreak.gif">
+        <p style="color:white;font-family:'Bahnschrift',monospace;font-size:4rem;margin-top:1rem;">Loading linux...</p>
+    </div>
+    <div id="toast-container"></div>
+    <span id="current-fw" style="display:none"></span>
+    <p id="top-bar-text" style="display:none"></p>
+    <div id="main-content">
+        <div id="pre-jb-view" class="d-flex align-items-center justify-content-center flex-direction-column selected"></div>
+        <div id="console-view"><div id="console" class="log"></div></div>
+        <div id="payloads-view"></div>
+    </div>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="main.js"></script>
+    <script src="umtx2.js"></script>
+    <script src="custom_host_stuff.js"></script>
+    <script src="syscalls.js"></script>
+    <script type="module" src="psfree/psfree.js"></script>
+    <script src="payload_map.js"></script>
+    <script>
+        addEventListener('unhandledrejection', (event) => {
+            const reason = event.reason;
+            alert(`${reason}\n${reason.sourceURL}:${reason.line}:${reason.column}\n${reason.stack}`);
+            throw reason;
+        });
+        document.getElementById("current-fw").innerHTML = fw_str;
+        registerAppCacheEventHandlers();
+        registerL2ButtonHandler();
+        window.onload = function () {
+            let autoload = sessionStorage.getItem(SESSIONSTORE_ON_LOAD_AUTORUN_KEY);
+            if (autoload) {
+                run(autoload == "wkonly", false);
+            } else {
+                setTimeout(() => run(), 1000);
+            }
+        };
+    </script>
+</body>
+</html>
