@@ -1,155 +1,122 @@
 # luckma-ps5
 
-Automated PS5 Linux boot appliance using a Luckfox single-board computer. Plug in the cables, run the setup script once, and the Luckfox handles everything: serving the exploit page, detecting the PS5, and delivering the Linux loader payload.
+Zero config automated jailbreak and linux loader for linux-compatible PS5s utilizing a Luckfox SBC.
 
-**Supported PS5 firmware: 1.00 – 5.50** (via [umtx2](https://github.com/ChendoChap/pOOBs4) exploit)
+# [Big Obvious Download Button Here](https://github.com/BringusStudios/luckma-ps5/releases)
 
----
+Online shopping links listed here are affiliate links that generate me a small revenue when purchased from
 
-## Supported Boards
+If you want to get into the weeds and change things/wanna read the source code, find the main script at `device/` in this repo, or SSH into the Luckfox and find it at `/usr/local/bin/ps5-jailbreak.sh`
 
-| Board | Auto Menu Navigation | Bluetooth Wake | Fully Hands-Free |
-|-------|:-------------------:|:--------------:|:----------------:|
-| [Luckfox Lyra Pi](https://www.luckfox.com/Mini-PC/Luckfox-Lyra-Pi) | ✅ | ✅ | ✅ |
-| [Luckfox Lyra / Lyra Plus](https://www.luckfox.com/Mini-PC/Luckfox-Lyra) | ❌ | ❌ | ❌ |
-| [Luckfox Pico Plus](https://www.luckfox.com/Luckfox-Pico/Luckfox-Pico-Plus) | ❌ | ❌ | ❌ |
+## Compatibility
 
-### Lyra Pi (recommended)
-The most feature-rich option. Once set up, it requires **zero interaction** on every boot cycle:
-1. PS5 boots into PS5 OS
-2. Lyra Pi detects the OS via port scan
-3. HID keyboard emulation navigates to the User's Guide automatically
-4. Exploit page loads and triggers
-5. Linux loader ELF is delivered via socat
-6. PS5 boots Linux
-7. PS5 enters rest mode, briefly cutting USB power and rebooting the Lyra Pi
-8. Lyra Pi boots and sends a Bluetooth wake packet to the PS5
-9. Repeat from step 1
+**A linux-compatible & umtx2 compatible PS5** (check [here](https://github.com/ps5-linux/ps5-linux-loader) for a list of linux supported firmware versions and [here](https://github.com/idlesauce/umtx2) for a list of umtx2 supported firmware versions)
 
-### Lyra / Lyra Plus & Pico Plus
-These boards serve the exploit page and deliver the loader automatically, but **you still need to manually navigate to Settings → User's Guide** on the PS5 each time to trigger it.
+[**Luckfox Lyra Pi RK3506B**](https://www.luckfox.com/Mini-PC/Luckfox-Lyra-Pi) — most feature-rich, fully hands-free
 
----
+[**Luckfox Lyra Plus RK3506G2**](https://amzn.to/4dwrYQ4)
 
-## What You Need
+[**Luckfox Pico Plus RV1103**](https://amzn.to/4ut74Hf)
+
+May be compatible with other Luckfox boards that I haven't tested
+
+## What you need
 
 ### All boards
-- PS5 on firmware 1.00–5.50
-- MicroSD card (2 GB+)
-- Ethernet cable (PS5 ↔ Luckfox)
-- PC with Python 3.9+ installed
-- USB drive with PS5 Linux installed
+- A USB flash drive/USB SSD with PS5 linux already flashed to it (follow through step 3 here: https://github.com/ps5-linux/ps5-linux-loader)
+- One of the Luckfox boards listed above
+- [A 2GB or larger MicroSD card](https://amzn.to/4n3ffaH)
+- [A microSD card reader if you don't have one on your PC](https://amzn.to/4cK22Qv)
+- [An ethernet cable](https://amzn.to/4vYXKMB)
 
 ### Lyra Pi only (additional)
-- **USB Bluetooth dongle with a Broadcom chipset** (required for PS5 wake)
-  - Known working: [Plugable USB Bluetooth 4.0 Adapter](https://amzn.to/4b8NGaY)
-  - Known working: [TP-Link UB400](https://amzn.to/4uSu5mx)
-  - The Lyra Pi's onboard Bluetooth chip is **not compatible** — a USB dongle is required
-- DualSense controller (connected via USB to the Lyra Pi during setup only)
-- USB hub or spare USB-A port for the dongle
+- A PC with Python 3.9+ installed (for the one-time setup script)
+- **A USB Bluetooth dongle with a Broadcom chipset** — the Lyra Pi's onboard Bluetooth is not compatible. Known working dongles:
+  - [Plugable USB Bluetooth 4.0 Micro Adapter](https://amzn.to/4b8NGaY)
+  - [TP-Link UB400](https://amzn.to/4uSu5mx)
+- A DualSense controller connected via USB to the Lyra Pi (one-time setup only)
 
----
+## Setup
 
-## Hardware Setup
+### Lyra Plus & Pico Plus
+1. Download the .7z file for your Luckfox board from the [releases page](https://github.com/BringusStudios/luckma-ps5/releases) and extract the .img file somewhere on your PC. Flash the .img file to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Win32DiskImager](https://win32diskimager.org/). If it bothers you about anything, just continue anyway
+2. Insert the microSD card into the Luckfox
+3. Plug your linux USB drive into your PS5
+4. Connect an ethernet cable between the Luckfox and PS5
+5. Connect the Luckfox's USB port to any power source. The USB ports on the PS5 itself work fine
+
+**You'll also need to set a static IP on your PC** for the USB RNDIS network interface that appears when the Luckfox is plugged in:
+
+| Board | IP Address | Subnet Mask |
+|---|---|---|
+| Lyra / Lyra Plus | `192.168.123.99` | `255.255.255.0` |
+| Pico Plus | `172.32.0.100` | `255.255.255.0` |
 
 ### Lyra Pi
-Connect the cables as follows before running setup:
+The Lyra Pi requires a one-time setup from your PC. Connect everything before running it:
 
 | Lyra Pi port | Connect to |
 |---|---|
 | eth0 (ethernet) | PS5 LAN port |
-| eth1 (ethernet) | Your router or switch (for SSH during setup) |
-| OTG USB-C port | PS5 USB-A port (for HID keyboard emulation) |
+| eth1 (ethernet) | Your router or switch |
+| OTG USB-C port | PS5 USB-A port |
 | USB-A port | Bluetooth dongle |
 | USB-A port | DualSense controller (setup only) |
 
-The Lyra Pi's LAN IP is assigned by your router via DHCP. You'll enter it when the setup script asks.
-
-### Lyra / Lyra Plus
-Connect the ethernet cable between the Lyra Plus's ethernet port and your PS5's LAN port. The Lyra Plus connects to your PC via the USB port (it shows up as a USB RNDIS network adapter).
-
-**Set a static IP on your PC** for the USB RNDIS network interface:
-- IP Address: `192.168.123.99`
-- Subnet Mask: `255.255.255.0`
-- No gateway needed
-
-### Pico Plus
-Same as above, but use this static IP on your PC for the RNDIS interface:
-- IP Address: `172.32.0.100`
-- Subnet Mask: `255.255.255.0`
-
----
-
-## Setup
-
-### 1. Flash the SD image
-
-Download the SD image for your board from the [Releases](https://github.com/BringusStudios/luckma-ps5/releases) page. Flash it to your microSD card using [Balena Etcher](https://etcher.balena.io/) or [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
-
-### 2. Clone this repo
+Then clone this repo and run the setup script from a local drive (not a network share):
 
 ```sh
 git clone https://github.com/BringusStudios/luckma-ps5.git
 cd luckma-ps5
-```
-
-> **Do not run the setup script from a network drive** (NAS, SMB share, etc.) — the dependency installer requires a local filesystem.
-
-### 3. Run the setup script
-
-```sh
 python setup_luckfox.py
 ```
 
-The script will automatically install its dependencies (`paramiko`, `cryptography`) into a virtual environment on first run.
-
-It will ask you:
-1. Which board you're using
-2. The device's IP address (Lyra Pi only — check your router's DHCP leases)
-
-**Lyra Pi only:** when prompted, plug your DualSense controller into a USB-A port **on the Lyra Pi** (not your PC). The script will read the Bluetooth MAC addresses directly from the controller and save them automatically.
-
-The script then copies all files to the device, configures it, and reboots it. Setup is complete.
-
----
+The script installs its own dependencies automatically. When prompted, plug your DualSense into a USB-A port **on the Lyra Pi** — the script reads the Bluetooth MAC addresses directly from the controller. Setup takes a few minutes and reboots the device when done.
 
 ## Usage
 
 ### Lyra Pi
-Everything is automatic after setup. Just make sure all cables are connected and power on the Lyra Pi — it will handle the rest.
+Everything is automatic after setup — just make sure all cables are connected and power it on.
 
-If a cycle gets stuck, unplug the Lyra Pi from the PS5's USB port and plug it back in to force a reboot.
+The full hands-free cycle:
+1. PS5 boots into PS5 OS
+2. Lyra Pi detects PS5 OS and navigates to the User's Guide automatically via HID keyboard emulation
+3. Exploit page loads and triggers
+4. Linux loader ELF is sent via socat
+5. PS5 goes into rest mode, cutting USB power and rebooting the Lyra Pi
+6. Lyra Pi boots and sends a Bluetooth wake packet to the PS5
+7. Repeat from step 1
 
-### Lyra / Lyra Plus & Pico Plus
-1. Power on the Luckfox with the ethernet cable connected to your PS5
-2. On the PS5, go to **Settings → User's Guide**
-3. The exploit page will load and trigger automatically
-4. Wait for Linux to boot
+### Lyra Plus & Pico Plus
 
----
+2. On the PS5 go to **Settings → Network → Set Up Internet Connection**
+   - Delete any existing LAN connections and set up a new wired LAN connection, leaving all settings default
+3. Open **Settings → User's Guide**
+4. Accept the untrusted certificate prompt
+5. Press the **Jailbreak** button on the page that loads
+6. The Luckfox will automatically detect when the exploit finishes loading and send the Linux loader payload
+7. The PS5 will go into rest mode. Wait for the orange light to stop blinking and then press the power button to boot into Linux
 
-## Customizing the Navigation Sequence (Lyra Pi)
+To run the jailbreak again after rebooting back to PS5 OS, just repeat steps 3-7. No need to touch the Luckfox, but you are welcome to unplug it after booting into linux.
 
-The HID navigation sequence is defined in `device/nav_sequence.py`. Each entry is a key code and a duration in seconds.
+## How it works
 
-To record a new sequence interactively, use `device/live_kb.py`:
+The Luckfox combines a DHCP server, DNS server, web server, and payload sender into one package:
 
-```sh
-# SSH into the Lyra Pi, then:
-python3 /path/to/live_kb.py
-```
+- Serves a DHCP address and spoofs DNS so `manuals.playstation.net` points to the Luckfox
+- Hosts the exploit HTTPS page from [umtx2](https://github.com/idlesauce/umtx2)
+- Automatically detects when the PS5 exploit triggers and sends the [ps5-linux-loader](https://github.com/ps5-linux/ps5-linux-loader) ELF via socat
+- Returns to standby after the payload is sent, ready to run again whenever the PS5 returns to the User's Guide
 
-This lets you play back keystrokes in real time and records the timings. Paste the output into `nav_sequence.py`, then re-run `setup_luckfox.py` to deploy the updated sequence.
-
----
+The Lyra Pi additionally emulates a USB HID keyboard to navigate the PS5 menus automatically, and sends a Bluetooth wake packet on every boot so the PS5 wakes from rest mode and starts the cycle over.
 
 ## Credits
 
-- [umtx2](https://github.com/ChendoChap/pOOBs4) — PS5 kernel exploit
-- [ps5-linux-loader](https://github.com/ps5-payload-dev/ps5-linux-loader) — ELF loader
+- [idlesauce](https://github.com/idlesauce/umtx2) — umtx2 exploit host (public domain)
+- [ps5-linux](https://github.com/ps5-linux/ps5-linux-loader) — ps5-linux-loader (GPL-3.0)
+- [socat](http://www.dest-unreach.org/socat/) — socat static ARM binary (GPL-2.0)
 - [pywakepsXonbt](https://pypi.org/project/pywakepsXonbt/) — Bluetooth PS5 wake
-
----
+- [theflow](https://github.com/TheOfficialFloW), [flatz](https://github.com/flatz), [cragson](https://github.com/cragson), [john-tornblom](https://github.com/john-tornblom) and the rest of the ps5 linux folks for the underlying exploit and loader work
 
 ## License
 
