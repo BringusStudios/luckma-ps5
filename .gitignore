@@ -22,6 +22,9 @@ luckma_ps5_project_handoff.md
 todo.txt
 error.log
 
+# Claude Code project files
+.claude/
+
 # Python
 __pycache__/
 *.pyc
